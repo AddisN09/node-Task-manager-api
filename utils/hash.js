@@ -1,5 +1,6 @@
 const crypto=require('crypto');
 const {promisify}=require('util');
+const {TMError}=require('../Errors/TMError.js');
 
 const scryptAsync=promisify(crypto.scrypt);
 
@@ -10,7 +11,7 @@ async function hashData(data,saltValue=null){
     return hashed.toString('hex');
     }
     catch(err){
-        throw new Error(`can't hash the data ${err}`);
+        throw new TMError({message:`faild to hash the data`},500);
     }
 }
 

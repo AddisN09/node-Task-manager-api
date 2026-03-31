@@ -1,6 +1,6 @@
 require('dotenv').config({path:'../.env'});
 const crypto=require('crypto');
-const {readFileContent, writeFileContent }=require('./dataAcces.js');
+const { TMError}=require('../Errors/TMError.js');
 
 
 const key=Buffer.from(process.env.Encryption_key,'hex');
@@ -17,7 +17,7 @@ async function encryptData(data){
     }
 }
 catch(err){
-    throw new Error(`can't encrypt the data ${err}`);
+    throw new TMError({message:`faild to encrypt the data`},500);
 }
 } 
 
@@ -29,13 +29,8 @@ catch(err){
     return decrypted;
     }
     catch(err){
-        throw new Error(`can't decrypt Data ${err}`);
+        throw new TMError({message:`faild to encrypt the data`},500);
     }
  }
 
- async function test(){
-    const encrypt=await encryptData('Addis');
-    return encrypt;
- }
- 
  module.exports={ encryptData, decryptData };
