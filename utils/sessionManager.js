@@ -1,21 +1,23 @@
 const crypto=require('crypto');
 const path=require('path');
 const { readFileContent, writeFileContent }=require('./dataAcces.js');
-const { findUserByUsername } = require('./findUser.js');
+const {decryptData }=require('./encrypt-decrypt.js');
 
 const filePath=path.join(__dirname,'../data/session.json');
 
-async function createSession(username){
+async function createSession(userId,role){
     try{
-        const user=await findUserByUsername(username);
          const sessions=await readFileContent(filePath);
-         const sessionId=crypto.randomBytes(32).toString('hex');
-         sessions[sessionId]={
-            userId:user.userId,
-            role:user.role
+         for(let key in sessions){
+            let session=sessions[key];    
+            if(await decryptData(session.userId.data,session.userId.iv)===userId){
+                return key;
+            }
          }
+         const sessionId=crypto.randomBytes(32).toString('hex');
+         sessions[sessionId]={userId,role}
          await writeFileContent(filePath,sessions);
-         return {sessionId,user};
+         return sessionId;
     }
     catch(err){
         throw new Error(`can't create a session due to ${err}`);
@@ -31,3 +33,5 @@ async function getSession(sessionId){
         throw new Error(`There is no session ${err}`);
     }
 }
+
+module.exports={createSession, getSession};
