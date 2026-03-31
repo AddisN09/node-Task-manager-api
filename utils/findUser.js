@@ -12,8 +12,7 @@ async function findUserByUsername(username) {
         let user = null;
         for (let element of users) {
             let decrypted = await decryptData(element.username.data, element.username.iv);
-            let result = crypto.timingSafeEqual(Buffer.from(decrypted, 'hex'), Buffer.from(username, 'hex'));
-            if (result) {
+            if (decrypted===username) {
                 user = element;
                 break;
             }
