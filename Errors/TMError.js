@@ -4,6 +4,9 @@ class TMError extends Error {
         this.name = this.constructor.name;
         this.message = message;
         this.statusCode = statusCode;
+         if(Error.captureStackTrace){
+            Error.captureStackTrace(this,this.constructor);
+        }
     }
 }
 

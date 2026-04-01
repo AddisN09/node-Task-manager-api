@@ -5,6 +5,10 @@ class UserNotFound extends TMError {
         super(message);
         this.statusCode = statusCode;
         this.message = message;
+         if(Error.captureStackTrace){
+            Error.captureStackTrace(this,this.constructor);
+        }
+        
     }
 }
 module.exports = { UserNotFound };
