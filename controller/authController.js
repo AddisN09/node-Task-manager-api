@@ -8,7 +8,7 @@ async function loginController(req,res){
         const body=await bodyParser(req);
         const result=await login(body.username,body.password);
         res.setHeader(`set-cookie`,`sessionId=${result.session}; HttpOnly`);
-        send(res,200,{message:`Login as ${body.username}`});
+        return send(res,200,{message:`Login as ${body.username}`});
     }
     catch(err){
        sendError(res,err);
