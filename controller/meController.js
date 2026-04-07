@@ -1,6 +1,6 @@
 const {send}=require('../utils/send.js');
 const {sendError}=require('../utils/sendError.js')
-const {cookieParser}=require('../utils/cookieParser.js');
+const {cookieParser}=require('../middleware/cookieParser.js');
 const {getSession}=require('../utils/sessionManager.js');
 const { decryptData } = require('../utils/encrypt-decrypt.js');
 
