@@ -1,11 +1,16 @@
 require('dotenv').config();
 const http=require('http');
+const {send}=require('./utils/send.js');
 const {authRoute}=require('./route/authRoute.js');
+const {meRoute}=require('./route/meRoute.js');
+const {createUserRoute}=require('./route/createUserRoute.js');
 
 const server=http.createServer(async (req,res)=>{
-    if(req.url.startsWith('/login')||req.url.startsWith('/logout')){
-        await authRoute(req,res);
-    }
+     if(await authRoute(req,res))return;
+     if(await meRoute(req,res))return;
+     if(await createUserRoute(req,res))return;
+
+     send(res,404,{message:`route not found`});
 });
 server.listen(3000,()=>{
     console.log(`Server is listing at port 3000`)
