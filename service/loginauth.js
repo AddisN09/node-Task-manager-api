@@ -8,7 +8,7 @@ const {InvalidCredential}=require('../Errors/invalidCredential.js');
 async function login(username, password) {
         const user = await findUserByUsername(username);
         const hashedPassword = await hashData(password, user.password.salt);
-        const result = crypto.timingSafeEqual(Buffer.from(hashedPassword, 'hex'), Buffer.from(user.password.data, 'hex'));
+        const result = crypto.timingSafeEqual(Buffer.from(hashedPassword.data, 'hex'), Buffer.from(user.password.data, 'hex'));
         if (!result) {
             throw new InvalidCredential({message:`incorrect password`},400);
         }
