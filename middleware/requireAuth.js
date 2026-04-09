@@ -17,6 +17,7 @@ async function requireAuth(req,res){
     if(!user){
         return sendError(res,{message:`Invalid session`,statusCode:401});
     }
+    req.sessionId=sessionId;
     req.user=user;
     return true;
 }
