@@ -13,7 +13,7 @@ async function createUserController(req,res){
         role:await decryptData(newUser.role.data,newUser.role.iv)});
     }
     catch(err){
-       sendError(res,err);
+       return sendError(res,err);
     }
 
 }
