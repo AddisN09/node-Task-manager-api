@@ -11,7 +11,7 @@ async function loginController(req,res){
         return send(res,200,{message:`Login as ${body.username}`});
     }
     catch(err){
-       sendError(res,err);
+       return sendError(res,err);
     }
 }
 
