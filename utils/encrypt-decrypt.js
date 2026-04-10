@@ -17,7 +17,7 @@ async function encryptData(data){
     }
 }
 catch(err){
-    throw new TMError({message:`faild to encrypt the data`},500);
+    throw new TMError({message:`faild to encrypt the data ${err}`},500);
 }
 } 
 
@@ -29,7 +29,7 @@ catch(err){
     return decrypted;
     }
     catch(err){
-        throw new TMError({message:`faild to encrypt the data`},500);
+        throw new TMError({message:`faild to decrypt the data`},500);
     }
  }
 
