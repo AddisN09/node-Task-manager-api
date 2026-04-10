@@ -19,6 +19,6 @@ async function requireAuth(req,res){
     }
     req.sessionId=sessionId;
     req.user=user;
-    return true;
+    return false;
 }
 module.exports={requireAuth};
