@@ -16,7 +16,7 @@ async function findUserByUsername(username) {
             return element;
         }
     }
-        throw new UserNotFound({ message: `user not found boom` }, 404);
+         return null;
 }
 
 module.exports = { findUserByUsername };
