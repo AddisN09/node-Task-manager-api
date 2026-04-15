@@ -6,6 +6,7 @@ const {meRoute}=require('./route/meRoute.js');
 const {createUserRoute}=require('./route/createUserRoute.js');
 const { getAllusersRoute } = require('./route/getAllusersRoute.js');
 const { getUserRoute } = require('./route/getUserRoute.js');
+const { deleteAllusersRoute } = require('./route/deleteAllUsersRoute.js');
 
 const server=http.createServer(async (req,res)=>{
      if(await authRoute(req,res))return;
@@ -13,6 +14,7 @@ const server=http.createServer(async (req,res)=>{
      if(await createUserRoute(req,res))return;
      if(await getAllusersRoute(req,res))return;
      if(await getUserRoute(req,res))return;
+     if(await deleteAllusersRoute(req,res))return;
 
      send(res,404,{message:`route not found`});
 });
