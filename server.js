@@ -8,6 +8,7 @@ const { getAllusersRoute } = require('./route/getAllusersRoute.js');
 const { getUserRoute } = require('./route/getUserRoute.js');
 const { deleteAllusersRoute } = require('./route/deleteAllUsersRoute.js');
 const {deleteUserRoute}=require('./route/deleteUserRoute.js');
+const { resetPasswordRoute } = require('./route/resetPasswordRoute.js');
 
 const server=http.createServer(async (req,res)=>{
      if(await authRoute(req,res))return;
@@ -17,6 +18,7 @@ const server=http.createServer(async (req,res)=>{
      if(await getUserRoute(req,res))return;
      if(await deleteAllusersRoute(req,res))return;
      if(await deleteUserRoute(req,res))return;
+     if(await resetPasswordRoute(req,res))return;
 
      send(res,404,{message:`route not found`});
 });
