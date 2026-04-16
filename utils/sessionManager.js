@@ -9,7 +9,7 @@ async function createSession(userId,role){
          const sessions=await readFileContent(filePath);
          for(let key in sessions){
             let session=sessions[key];    
-            if(await decryptData(session.userId.data,session.userId.iv)===await decryptData(userId.data,userId.iv)){
+            if(session.userId===userId){
                 return key;
             }
          }
