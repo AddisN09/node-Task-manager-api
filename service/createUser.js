@@ -7,12 +7,12 @@ const { TMError } = require('../Errors/TMError.js');
 const filePath=path.join(__dirname,'../data/user.json');
 
 async function createUser(username,password,role){
-    const oldUser=await findUserByUsername(username);
+     const users=await readFileContent(filePath);
+    const oldUser=await findUserByUsername(users,username);
     if(oldUser){
         throw new TMError(`This user name is occupied`);
     }
     const newUser= await userModel(username,password,role);
-    const users=await readFileContent(filePath);
     users.push(newUser);
     await writeFileContent(filePath,users);
     return newUser;

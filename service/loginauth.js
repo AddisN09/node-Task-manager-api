@@ -3,10 +3,14 @@ const { hashData } = require('../utils/hash.js');
 const { findUserByUsername } = require('../utils/findUser.js');
 const { createSession } = require('../utils/sessionManager.js');
 const {InvalidCredential}=require('../Errors/invalidCredential.js');
+const path = require('path');
+const { readFileContent } = require('../utils/dataAcces.js');
 
+const filePath = path.join(__dirname, '../data/user.json');
 
 async function login(username, password) {
-        const user = await findUserByUsername(username);
+        const users=await readFileContent(filePath);
+        const user = await findUserByUsername(users,username);
         if(!user){
             throw new UserNotFound({ message: `user not found boom` }, 404);
         }

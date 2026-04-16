@@ -1,13 +1,13 @@
-const path = require('path');
-const { readFileContent } = require('./dataAcces.js');
- 
-const filePath = path.join(__dirname, '../data/user.json');
+const { TMError } = require("../Errors/TMError");
 
-async function findUserByUsername(username) {
-    const users = await readFileContent(filePath);
-    const user=users.find(user=>user.username===username);
+async function findUserByUsername(data,username) {
+    if(!Array.isArray(data)){
+         throw new TMError('improper data server error',500);
+    }
+    const user=data.find(user=>user.username===username);
     if(!user)return null;
     return user;
     }
 
-module.exports = { findUserByUsername };
+ module.exports = { findUserByUsername };
+ 
