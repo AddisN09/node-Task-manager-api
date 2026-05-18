@@ -5,8 +5,7 @@ const { bodyParser } = require('../middleware/bodyParser.js');
 
 async function userActivityController(req,res){
     try{
-        const body=await bodyParser(req);
-        const result=await userActivity(body.username,body.activity);
+        const result=await userActivity(req.params.userId,req.query.activity);
         return send(res,200,{message:result});
     }
     catch(err){

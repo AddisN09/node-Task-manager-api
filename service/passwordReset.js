@@ -6,11 +6,11 @@ const {hashData}=require('../utils/hash.js');
 
 const filePath=path.join(__dirname,'../data/user.json');
 
-async function resetPassword(username){
+async function resetPassword(userId){
     const users=await readFileContent(filePath);
-      const user=await findUserByUsername(users,username);
+      const user=users.find(user=>user.userId===userId);
       if(!user){
-        throw new UserNotFound(`There is no user with such username`);
+        throw new UserNotFound(`There is no user with userId ${userId} miaw`);
       }
       user.password=await hashData('Default');
       await writeFileContent(filePath,users);

@@ -5,8 +5,8 @@ const {sendError}=require('../utils/sendError.js');
 
 async function getUserController(req,res){
     try{
-     const username=req.username;
-     const result= await getUser(username);
+     const userId=req.params.userId;
+     const result= await getUser(userId);
      return send(res,200,result);
     }
     catch(err){

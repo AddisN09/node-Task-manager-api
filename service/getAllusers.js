@@ -7,7 +7,7 @@ async function getAllUsers(){
     const users=await readFileContent(filePath);
     let store=[];
     users.forEach(user=>{
-        store.push({username:user.username,userId:user.userId,role:user.role});
+        store.push({username:user.username,userId:user.userId,role:user.role,active:user.active});
     });
     return store; 
 }

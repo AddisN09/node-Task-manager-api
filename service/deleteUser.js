@@ -4,11 +4,11 @@ const path = require('path');
 
 const filePath = path.join(__dirname, '../data/user.json');
 
-async function deleteUser(username) {
+async function deleteUser(userId) {
      let users = await readFileContent(filePath);
-     const filteredUsers = users.filter(user => user.username !== username);
+     const filteredUsers = users.filter(user => user.userId !== userId);
      if (users.length === filteredUsers.length) {
-          throw new UserNotFound(`There is no user with user name ${username}`, 404);
+          throw new UserNotFound(`There is no user with user ID ${userId}`, 404);
      }
      await writeFileContent(filePath, filteredUsers);
      return true;
