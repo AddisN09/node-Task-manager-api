@@ -3,10 +3,11 @@ const {TMError}=require('../Errors/TMError.js');
 
 async function idGenerator(){
     try{
-    return crypto.randomUUID();
+    return crypto.randomBytes(2);
     }
     catch(err){
         throw new TMError({message:`faild to generate id`},500);
     }
 }
 module.exports={idGenerator};
+ 
