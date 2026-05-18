@@ -6,13 +6,13 @@ const path = require('path');
 const filePath = path.join(__dirname, '../data/user.json');
 
 
-async function getUser(username){
+async function getUser(userId){
     const users=await readFileContent(filePath);
-    const user=await findUserByUsername(users,username);
+    const user=users.find(user=>user.userId===userId);
     if(!user){
         throw new TMError(`There is no user with this ${username} username`);
     }
-    return {username:user.username,userId:user.userId,role:user.role};
+    return {username:user.username,userId:user.userId,role:user.role,active:user.active};
 }
 
 module.exports={getUser};

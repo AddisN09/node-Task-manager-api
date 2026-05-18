@@ -4,11 +4,10 @@ const {sendError}=require('../utils/sendError.js');
 
 async function deleteUserController(req,res){
     try{
-       await deleteUser(req.username);
-       return send(res,200,{message:`user with username ${req.username} successfully deleted`});
+       await deleteUser(req.params.userId);
+       return send(res,200,{message:`user with userId ${req.params.userId} successfully deleted`});
     }
     catch(err){
-        console.log(err);
         return sendError(res,err);
     }
 }
