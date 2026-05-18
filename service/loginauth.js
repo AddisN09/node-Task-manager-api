@@ -5,6 +5,7 @@ const { createSession } = require('../utils/sessionManager.js');
 const {InvalidCredential}=require('../Errors/invalidCredential.js');
 const path = require('path');
 const { readFileContent } = require('../utils/dataAcces.js');
+const { UserNotFound}=require('../Errors/noUser.js');
 
 const filePath = path.join(__dirname, '../data/user.json');
 
