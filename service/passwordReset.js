@@ -10,7 +10,7 @@ async function resetPassword(userId){
     const users=await readFileContent(filePath);
       const user=users.find(user=>user.userId===userId);
       if(!user){
-        throw new UserNotFound(`There is no user with userId ${userId} miaw`);
+        throw new UserNotFound(`There is no user with userId ${userId}`,404);
       }
       user.password=await hashData('Default');
       await writeFileContent(filePath,users);

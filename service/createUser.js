@@ -10,7 +10,7 @@ async function createUser(username,password,role){
      const users=await readFileContent(filePath);
     const oldUser=await findUserByUsername(users,username);
     if(oldUser){
-        throw new TMError(`This user name is occupied`);
+        throw new TMError(`This user name is occupied`,400);
     }
     const newUser= await userModel(username,password,role);
     users.push(newUser);
