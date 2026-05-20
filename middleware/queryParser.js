@@ -4,11 +4,11 @@ const { sendError } = require('../utils/sendError');
 
 async function queryParser(req,res){
     const urlObject=new url.URL(req.url,`http://${req.headers.host}`);
-    const username=urlObject.searchParams.get('username');
-    if(!username){
+    const activity=urlObject.searchParams.get('active');
+    if(!activity){
         return sendError(res,{message:`There is no query string `,statusCode:400});
     }
-    req.username=username;     
+    req.query={activity};     
     return false;
 }
 

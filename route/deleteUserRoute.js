@@ -6,9 +6,8 @@ const { deleteUserController } = require('../controller/deleteUserController.js'
  
 
 async function deleteUserRoute(req,res){
-    const userURL=new URL(req.url,`http://${req.headers.host}`);
-    const pathname=userURL.pathname;
-    if(pathname.startsWith(`/user`) && req.method==='DELETE'){
+     let pathParts=req.url.split('/');
+    if(pathParts[1]==='user' && pathParts.length===3 && req.method==='DELETE'){
         if(await requireAuth(req,res))return true;
         if(await requireRole(req,res))return true;
         if(await routeParameters(req,res,'userId'))return true;
