@@ -11,7 +11,6 @@ async function getUser(userId){
     const user=users.find(user=>user.userId===userId);
     if(!user){
         throw new TMError(`There is no user with this ${userId} userId`,404);
-
     }
     return {username:user.username,userId:user.userId,role:user.role,active:user.active};
 }
