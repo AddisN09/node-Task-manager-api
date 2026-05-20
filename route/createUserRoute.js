@@ -3,7 +3,7 @@ const { requireAuth } = require('../middleware/requireAuth.js');
 const {requireRole}=require('../middleware/requireRole.js');
 
 async function createUserRoute(req,res){
-    if(req.url==='/login/user' && req.method==='POST'){
+    if(req.url==='/user' && req.method==='POST'){
         if(await requireAuth(req,res))return true;
 
         if(await requireRole(req,res))return true;
