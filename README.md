@@ -1,98 +1,365 @@
- # 🚀 Task Manager API (Pure Node.js Backend)
 
-A **low-level Task Management REST API** built using **pure Node.js (no frameworks)** to deeply understand backend fundamentals such as routing, authentication, session management, and role-based access control.
+ # Task Manager API
 
----
+A simple Task Manager REST API built with pure Node.js without using frameworks like Express.
 
-## 📌 Overview
+This project was built mainly to understand how backend development works internally by creating everything manually, including:
+- Routing system
+- Middleware system
+- Authentication
+- Authorization
+- Controllers
+- Services
+- Models
+- Route parameter extraction
+- File-based database
 
-This project simulates a real-world task management system with two roles:
-
-- **Admin**
-- **User**
-
-It focuses on building backend logic from scratch to understand how frameworks like Express work internally.
-
----
-
-## 🎯 Key Goals of This Project
-
-- Build a backend without Express or external frameworks
-- Understand HTTP server creation in Node.js
-- Implement session-based authentication manually
-- Design role-based access control (RBAC)
-- Build a real task workflow system
+Instead of using MongoDB or PostgreSQL, this API uses the Node.js file system (`fs`) module and JSON files as a database.
 
 ---
 
-## ⚙️ Features
+# Why I Built This
 
-### 🔐 Authentication System
-- Session-based login/logout
-- Secure session tracking
-- Role-based authorization (Admin / User)
+The main purpose of this project is learning backend development deeply by understanding how frameworks like Express work internally.
 
-### 👨‍💼 Admin Features
-- Create and manage users
-- Create tasks
-- Assign tasks to users
-- Approve or reject task completion requests
-- View system-wide data (users + tasks)
-
-### 👤 User Features
-- View assigned tasks
-- Update personal profile
-- Submit task completion requests
-- Track task status
-
-### 📋 Task Workflow
-
+I wanted to practice:
+- Creating HTTP servers
+- Building a custom router
+- Writing middleware manually
+- Handling requests and responses
+- Authentication & authorization
+- CRUD operations
+- Working with the file system
+- Backend architecture
 
 ---
 
-## 🏗️ System Architecture
+# Technologies Used
 
-This project is built using a **layered architecture approach**:
-
-
----
-
-## 🧠 What I Learned
-
-- How Node.js HTTP server works internally
-- Building routing system without Express
-- Handling sessions manually
-- Designing RBAC (Role-Based Access Control)
-- Structuring backend applications properly
-- Managing request/response lifecycle
+- Node.js
+- JavaScript
+- File System (`fs`) as database
 
 ---
 
-## 📁 Project Structure
+# Project Structure
 
 ```bash
-.
-├── server.js
+project/
+│
+├── controller/
+│    |_ authController.js
+|    |_createUserController.js
+|    |_deleteAllUserController.js
+|    |_deleteUserController.js
+|    |_getAllUserController.js
+|    |_getUserController.js
+|    |_logoutController.js
+|    |_resetPasswordController.js
+|    |_userActivityController.js
+|
+├── middleware/
+│   ├── requireAuth.js
+│   ├── requireRole.js
+│   └── routeParameters.js
+│
+├── model/
+|    |_userModel.js
+|    |_taskModel.js
+│
 ├── routes/
-├── controllers/
-├── services/
-├── middlewares/
+|    |_authRoute.js
+|    |_createUserRoute.js
+|    |_deleteAllUserRoute.js
+|    |_deleteUserRoute.js
+|    |_getAllUsersRoute.js
+|    |_getUserRoute.js
+|    |_resetPasswordRoute.js
+|    |_userActivityRoute.js
+│
+├── service/
+|    |_createUser.js
+|    |_deleteAllUser.js
+|    |_deleteUser.js
+|    |_getAllUsers.js
+|    |_getUser.js
+|    |_loginauth.js
+|    |_logoutService.js
+|    |_PassowrdReset.js
+|    |_usrActivity.js
+│
 ├── utils/
-├── models/
-└── sessions/
+│   |_dataAcess.js
+|   |_encrypt-decrypt.js
+|   |_findUser.js
+|   |_hash.js
+|   |_idGenrator.js
+|   |_send.js
+|   |_sendError.js
+|   |_sessionManager.js
+│
+├── database/
+│   ├── users.json
+│   └── tasks.json
+│
+├── server.js
+└── package.json
+```
 
+---
+
+# Features
+
+## Authentication
+- User login
+- Authentication middleware
+- Protected routes
+
+## Authorization
+- Role-based access control
+- Admin-only routes
+
+## User Management
+Admin can:
+- Create users
+- Update users
+- Delete users
+- View all users
+
+## Task Management
+Admin can:
+- Create tasks
+- Update tasks
+- Delete tasks
+- View all tasks
+
+Users can:
+- View tasks
+- Manage their tasks depending on permissions
+
+---
+
+# Available API Endpoints
+
+# Authentication Routes
+
+## Login
+
+```http
 POST /login
+```
+
+Example Body:
+
+```json
+{
+  "username": "Task-Manager-Admin",
+  "password": "TMA3"
+}
+```
+
+---
+
+# User Routes
+
+## Create User
+
+```http
+POST /user
+```
+Example Body :
+
+Example Body:
+
+```json
+{
+  "username": "first-user",
+}
+```
+
+## Get All Users
+
+```http
+GET /users
+```
+## Get User
+
+```http
+GET /user/:id
+```
+## Delete All Users
+
+```http
+DELETE /users
+```
+
+## Delete User
+
+```http
+DELETE /user/:id
+```
+## Reset Password
+
+```http
+PATCH /user/:id
+```
+## User Activity
+
+```http
+PATCH /user/:id?active=Boolean
+```
+## LOgout
+
+```http
 POST /logout
-GET    /users          (Admin only)
-POST   /users          (Admin only)
-PUT    /users/:id
-DELETE /users/:id      (Admin only)
-GET    /tasks
-POST   /tasks          (Admin only)
-PUT    /tasks/:id
-DELETE /tasks/:id      (Admin only)
-POST   /tasks/:id/complete-request
+```
 
+# Task Routes
 
-git clone https://github.com/your-username/task-manager-api.git
-cd task-manager-api
+## Create Task
+
+```http
+POST /tasks
+```
+
+## Get All Tasks
+
+```http
+GET /tasks
+```
+
+## Update Task
+
+```http
+PUT /task/:id
+```
+
+Example:
+
+```http
+PUT /task/5
+```
+
+## Delete Task
+
+```http
+DELETE /task/:id
+```
+
+Example:
+
+```http
+DELETE /tasks/5
+```
+
+---
+
+# Middleware
+
+This project includes custom middleware implementations.
+
+## requireAuth
+Checks if the user is authenticated.
+
+## requireRole
+Checks user roles and permissions.
+
+## routeParameters
+Custom route parameter extractor.
+
+Example:
+
+```js
+req.params.id
+```
+
+---
+
+# Database
+
+This project does not use a real database.
+
+Instead, data is stored inside JSON files using the Node.js `fs` module.
+
+Example:
+- `users.json`
+- `tasks.json`
+
+This helped me understand:
+- File operations
+- Data persistence
+- CRUD logic
+- Backend architecture
+
+---
+
+# Running the Project
+
+## Install dependencies
+
+```bash
+npm install
+```
+
+## Start the server
+
+```bash
+node server.js
+```
+
+---
+
+# Example Request
+
+## Delete User
+
+```http
+DELETE /user/2
+```
+
+---
+
+# Example Response
+
+```json
+{
+  "message": "User deleted successfully"
+}
+```
+
+---
+
+# Concepts Practiced
+
+- Node.js HTTP module
+- REST API development
+- Custom routing
+- Middleware systems
+- Request parsing
+- Route parameters
+- Authentication
+- Authorization
+- File handling
+- Error handling
+- Backend architecture
+
+---
+
+# Future Improvements
+
+- JWT Authentication
+- Refresh Tokens
+- Better validation
+- Pagination
+- Database integration
+- Testing
+- API documentation
+- Better folder organization
+
+---
+
+# Author 
+ Addis
+
+Built for learning and understanding backend development with pure Node.js.
+>>>>>>> 87ab063 (doc : update the readme)
