@@ -1,3 +1,7 @@
 .env
 node_modules
 package-lock.json
+data
+session.json
+task.json
+user.json
