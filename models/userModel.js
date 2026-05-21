@@ -3,7 +3,7 @@ const {idGenerator}=require('../utils/idGenerator.js');
 
 async function userModel(username,password='Default',role='user'){
     return {
-        userId:await idGenerator(),
+        userId:`user-${await idGenerator()}`,
         username,
         password: await hashData(password),
         role,
