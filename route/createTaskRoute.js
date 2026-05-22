@@ -9,7 +9,7 @@ async function createTaskRoute(req,res){
         if(await requireRole(req,res))return true;
         if(await body(req,res))return true;
 
-        await createTaskController(req,res);
+        return await createTaskController(req,res);
     }
     return false;
 }
