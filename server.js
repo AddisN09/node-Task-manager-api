@@ -12,7 +12,7 @@ const { resetPasswordRoute } = require('./route/resetPasswordRoute.js');
 const { userActivityRoute } = require('./route/userActivityRoute.js');
 const { createTaskRoute } = require('./route/createTaskRoute.js');
 const { getTaskRoute } = require('./route/getTaskRoute.js');
- 
+const {getAllTasksRoute}=require('./route/getAllTasksRoute.js');
 
 const server=http.createServer(async (req,res)=>{
      if(await authRoute(req,res))return;
@@ -26,6 +26,7 @@ const server=http.createServer(async (req,res)=>{
      if(await userActivityRoute(req,res))return;
      if(await createTaskRoute(req,res))return;
      if(await getTaskRoute(req,res))return;
+     if(await getAllTasksRoute(req,res))return;
 
      send(res,404,{message:`route not found`});
 });
